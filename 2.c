@@ -6,18 +6,17 @@
 #include <unistd.h>
 #include "mylib.h"
 
-int main(int argc, char* argv[]) {
+
+
+int main() {
     char* str_1;
     int fifo = 0;
-    fifo = open("a.fifo", O_RDWR);
+    fifo = open("a.fifo", O_RDONLY);
     if(fifo < 0)
     printf("Fifo error");
-    
-    printf("%d", fifo);
     str_1 = read_to_string (fifo, str_1);
-    printf("%s\n", str_1);
-
+    printf("%s", str_1);
     close(fifo);
-
+    unlink("a.fifo");
     return 0;
 }

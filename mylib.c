@@ -24,11 +24,10 @@ void write_string_to (char* message, int fd_to)
 {	int error = 0;
 	int string_len = 0;
 	string_len = strlen (message);
-    printf("%d\n", fd_to);
-    printf("%d\n", string_len);
+    printf("Size of string = %d\n", string_len);
 	if ((error = write(fd_to, message, string_len)) < 0)
 	printf("Error with write\n");
     
-    printf("%d\n", error);
+    printf("SIze of write = %d\n", error);
 	
 }

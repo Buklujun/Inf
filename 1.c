@@ -45,12 +45,11 @@ int main (int argc, char* argv[])
 	if ((error = mkfifo("a.fifo", 0666)) < 0) {
 			printf ("Can't creat fifo\n");
 			}
-        fifo = open("a.fifo", O_RDWR);
+        fifo = open("a.fifo", O_WRONLY);
 			
-        printf("%d\n", fifo);
-        write_string_to(ls_string, fifo);
     
-
+        write_string_to(ls_string, fifo);
+        close(fifo);
         close(fd[0]);
 return 0;
 }
