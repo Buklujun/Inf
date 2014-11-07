@@ -31,7 +31,6 @@ void write_string_to (char* message, int fd_to)
     printf("SIze of write = %d\n", error);
     if (error != string_len)
     {printf("Ne vse zapisalos'");
-        exit(-1);
     }
 	
 }
