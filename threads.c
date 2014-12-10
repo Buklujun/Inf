@@ -14,10 +14,10 @@
 #include <errno.h>
 #include "mylib.h"
 
+int *answer;
 struct thread_args
 {
     int *matrix;
-    int *answer;
     int size;
     int first_pos;
     int last_pos;
@@ -28,7 +28,6 @@ void* func(void* args)
     struct thread_args* thr = (struct thread_args*) args;
     int i, j, k, l, m, count = 0;
     int *matrix = thr->matrix;
-    int *answer = thr->answer;
     int size = thr->size;
     int first_pos = thr->first_pos;
     int last_pos = thr->last_pos;
@@ -48,28 +47,28 @@ void* func(void* args)
 }
 
 int main(int argc,char* argv[]) {
-	int i = 0;
-	int n = atoi(argv[1]);
+    int i = 0;
     int m = atoi(argv[2]);
+    int n = atoi(argv[1]);
     pthread_t thread[m];
-	int id, fd, id_res = 0;
+    int id, fd, id_res = 0;
     int size = n*n;
     time_t prog_time = 0;
     clock_t proc_time = 0;
     int *matrix = (int*)calloc(size, sizeof(int));
-    int *answer = (int*)calloc(size, sizeof(int));
-	if ((id = open("1.txt", O_RDONLY, 0777)) < 0){
-		perror("Error with open");
-		exit(-1);}
-	read_to_int(id, matrix, size);
-		
-    //for (i=0;i<n;i++){
-              //  for (int j=0;j<n;j++)
-	        //{
-          //              printf("%d ",matrix[n*i+j]);
-		//	if (j == n-1)
-		//	printf("\n");
-      //  	}}
+    answer = (int*)calloc(size, sizeof(int));
+    if ((id = open("1.txt", O_RDONLY, 0777)) < 0){
+        perror("Error with open");
+        exit(-1);}
+    read_to_int(id, matrix, size);
+    
+    for (i=0;i<n;i++){
+      for (int j=0;j<n;j++)
+    {
+                  printf("%d ",matrix[n*i+j]);
+    	if (j == n-1)
+    	printf("\n");
+      	}}
     
     int step = n/m;
     int k_pos = 0;
@@ -80,7 +79,6 @@ int main(int argc,char* argv[]) {
     
     for (i = 0; i < m;i++){
         arg[i].matrix = matrix;
-        arg[i].answer = answer;
         arg[i].size = n;
         arg[i].first_pos = k_pos;
         k_pos += step;
